@@ -130,11 +130,19 @@ impl Process {
                 self.op_ptr + 1
             },
             Operator::ValuePlusOne => {
-                self.memory[self.memory_ptr] = self.memory[self.memory_ptr] + 1;
+                if self.memory[self.memory_ptr] == <u8>::max_value() {
+                    self.memory[self.memory_ptr] = 0;
+                } else {
+                    self.memory[self.memory_ptr] = self.memory[self.memory_ptr] + 1;
+                }
                 self.op_ptr + 1
             },
             Operator::ValueMinusOne => {
-                self.memory[self.memory_ptr] = self.memory[self.memory_ptr] - 1;
+                if self.memory[self.memory_ptr] == 0 {
+                    self.memory[self.memory_ptr] = <u8>::max_value();
+                } else {
+                    self.memory[self.memory_ptr] = self.memory[self.memory_ptr] - 1;
+                }
                 self.op_ptr + 1
             },
             Operator::Print => {
