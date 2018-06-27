@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["Error",""],["Operator",""]],"struct":[["Process",""],["Program",""]],"trait":[["IntoProgram",""]]});
