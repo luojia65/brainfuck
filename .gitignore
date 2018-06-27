@@ -67,3 +67,5 @@ fabric.properties
 .idea/
 
 *.iml
+
+.DS_Store

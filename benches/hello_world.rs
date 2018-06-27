@@ -2,7 +2,7 @@
 extern crate brainfuck;
 extern crate test;
 
-use brainfuck::prelude::*;
+use brainfuck::*;
 use std::io;
 use test::Bencher;
 

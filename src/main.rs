@@ -1,6 +1,6 @@
 extern crate brainfuck;
 
-use brainfuck::prelude::*;
+use brainfuck::*;
 use std::error;
 use std::io::stdin;
 use std::io::stdout;
