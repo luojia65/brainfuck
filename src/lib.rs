@@ -1,3 +1,8 @@
+//! An experimental Brainfuck compiler & runtime, built to learn API designing style in Rust.
+//!
+//! Brainfuck is a minimized programming language. All its programs may be consisted of up to 8
+//! operators: `>`, `<`, `+`, `-`, `.`, `,`, `[` and `]`. 
+
 mod error;
 mod op;
 mod process;
