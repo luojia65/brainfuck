@@ -1,7 +1,9 @@
 use op::Operator;
 use std::rc::Rc;
 
-
+/// A brainfuck program that can be executed after created into a [`Process`].
+///
+/// [`Process`]: struct.Process.html
 #[derive(Clone)]
 pub struct Program {
     ops: Rc<Vec<Operator>>,
@@ -9,15 +11,24 @@ pub struct Program {
 }
 
 impl Program {
+    /// All operators in this program that could be executed later in a [`Process`].
+    ///
+    /// As brainfuck programs could include redirect operators like `[` and `]`, the return value
+    /// of this function should provide a random access. Iterators are not allowed.
+    ///
+    /// [`Process`]: struct.Process.html
     pub fn ops(&self) -> Rc<Vec<Operator>> {
         Rc::clone(&self.ops)
     }
 
+    /// Provides maximum loop depth, which is useful when creating a process as the size of loop
+    /// stack is given by this function.
     pub fn deepest_loop(&self) -> usize {
         self.deepest_loop
     }
 }
 
+/// What can be compiled into a program. That could be a `&str` or a `String`.
 pub trait IntoProgram {
     fn into_program(self) -> Program;
 }

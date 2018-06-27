@@ -4,6 +4,12 @@ use program::IntoProgram;
 use std::io::{Read, Write};
 use std::rc::Rc;
 
+/// A brainfuck process, containing the program as operation vector, the memory, input, output
+/// and so on.
+///
+/// This process may be created using [`Process::new`].
+///
+/// [`Process::new`]: struct.Process.html#new
 pub struct Process {
     ops: Rc<Vec<Operator>>,
     op_ptr: usize,
@@ -15,6 +21,15 @@ pub struct Process {
 }
 
 impl Process {
+    /// Creates a process from given brainfuck program.
+    ///
+    /// This function does not actually check the compile errors such as unmatched `[` or `]`,
+    /// pointer underflow, pointer overflow, out of memory and so on.
+    /// Therefore, this compiler is not safe enough as rustc :)
+    ///
+    /// After using `Process::new`, you may execute using function [`execute()`].
+    ///
+    /// [`execute()`]: struct.Process.html#execute
     pub fn new<P, I, O>(program: P, mem_size: usize, input: I, output: O) -> Process
         where P: IntoProgram, I: Read + 'static, O: Write + 'static {
         let mut memory = Vec::with_capacity(mem_size);
@@ -33,6 +48,17 @@ impl Process {
         }
     }
 
+    /// Executes this brainfuck process containing the program, the allocated memory, and the
+    /// input and output devices defined in function `new`.
+    ///
+    /// Instead of by parameters and return values, the input and output is transferred by input
+    /// and output devices.
+    ///
+    /// # Errors
+    ///
+    /// Errors occurred in execution. See [`brainfuck::Error`].
+    ///
+    /// [`brainfuck::Error`]: enum.Error.html
     #[inline]
     pub fn execute(&mut self) -> Result<(), Error> {
         loop {
