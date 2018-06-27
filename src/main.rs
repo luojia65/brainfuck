@@ -1,11 +1,18 @@
-mod brainfuck;
+extern crate brainfuck;
 
+use brainfuck::prelude::*;
+use std::error;
 use std::io::stdin;
 use std::io::stdout;
 
-fn main() -> Result<(), brainfuck::Error>{
-    let s = ",>++++++[<-------->-],,[<+>-],<.>.";
-    let program = brainfuck::Program::from(String::from(s));
-    let mut process = brainfuck::Process::new(program, 1048576, stdin(), stdout());
-    process.execute()
+fn main() -> Result<(), Box<error::Error>> {
+    let s = "\
+++++++++[->++++++++<]>++++++++.<+++++[->+++++<]>++++.+++++++
+..+++.<++++++++[->--------<]>---------------.<+++++++[->++++
++++<]>++++++.<++++[->++++<]>++++++++.+++.------.--------.<++
+++++++[->--------<]>---.<++++[->----<]>----.---.<
+    ";
+    let mut process = Process::new(s, 1048576, stdin(), stdout());
+    process.execute()?;
+    Ok(())
 }
