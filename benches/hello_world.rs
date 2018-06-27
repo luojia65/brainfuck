@@ -3,8 +3,8 @@ extern crate brainfuck;
 extern crate test;
 
 use brainfuck::prelude::*;
-use test::Bencher;
 use std::io;
+use test::Bencher;
 
 struct BlackHole;
 
