@@ -33,18 +33,13 @@ pub trait IntoProgram {
     fn into_program(self) -> Program;
 }
 
-impl<'a> IntoProgram for &'a str {
+impl <T> IntoProgram for T where T: ToString {
     fn into_program(self) -> Program {
-        String::from(self).into_program()
-    }
-}
-
-impl IntoProgram for String {
-    fn into_program(self) -> Program {
-        let mut ops = Vec::with_capacity(self.len());
+        let s = self.to_string();
+        let mut ops = Vec::with_capacity(s.len());
         let mut deepest_loop = 0;
         let mut loop_depth = 0;
-        for ch in self.chars() {
+        for ch in s.chars() {
             let op = match ch {
                 '>' => Operator::PtrPlusOne,
                 '<' => Operator::PtrMinusOne,
