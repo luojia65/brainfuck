@@ -3,6 +3,8 @@
 //! Brainfuck is a minimized programming language. All its programs may be consisted of up to 8
 //! operators: `>`, `<`, `+`, `-`, `.`, `,`, `[` and `]`. 
 
+#![feature(crate_visibility_modifier)]
+
 mod error;
 mod op;
 mod process;

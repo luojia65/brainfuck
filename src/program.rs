@@ -4,7 +4,7 @@ use std::rc::Rc;
 /// A brainfuck program that can be executed after created into a [`Process`].
 ///
 /// [`Process`]: struct.Process.html
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct Program {
     ops: Rc<Vec<Operator>>,
     deepest_loop: usize,
@@ -17,13 +17,13 @@ impl Program {
     /// of this function should provide a random access. Iterators are not allowed.
     ///
     /// [`Process`]: struct.Process.html
-    pub fn ops(&self) -> Rc<Vec<Operator>> {
+    crate fn ops(&self) -> Rc<Vec<Operator>> {
         Rc::clone(&self.ops)
     }
 
     /// Provides maximum loop depth, which is useful when creating a process as the size of loop
     /// stack is given by this function.
-    pub fn deepest_loop(&self) -> usize {
+    crate fn deepest_loop(&self) -> usize {
         self.deepest_loop
     }
 }
